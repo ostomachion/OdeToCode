@@ -21,9 +21,9 @@ namespace OdeToFood.Data
         public IEnumerable<Restaurant> GetRestaurantsByName(string name = null)
         {
             return from r in restaurants
-                where string.IsNullOrEmpty(name) || r.Name.StartsWith(name)
-                orderby r.Name
-                select r;
+                   where string.IsNullOrEmpty(name) || r.Name.StartsWith(name)
+                   orderby r.Name
+                   select r;
         }
 
         public Restaurant GetById(int id) => restaurants.SingleOrDefault(r => r.Id == id);
@@ -43,6 +43,16 @@ namespace OdeToFood.Data
                 restaurant.Name = updatedRestaurant.Name;
                 restaurant.Location = updatedRestaurant.Location;
                 restaurant.Cuisine = updatedRestaurant.Cuisine;
+            }
+            return restaurant;
+        }
+
+        public Restaurant Delete(int id)
+        {
+            var restaurant = restaurants.FirstOrDefault(r => r.Id == id);
+            if (restaurant is not null)
+            {
+                restaurants.Remove(restaurant);
             }
             return restaurant;
         }
