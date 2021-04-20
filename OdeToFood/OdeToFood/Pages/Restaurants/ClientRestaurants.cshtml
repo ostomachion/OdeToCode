@@ -1,0 +1,33 @@
+@page
+@model OdeToFood.Pages.Restaurants.ClientRestaurantsModel
+@{
+    ViewData["Title"] = "ClientRestaurants";
+}
+
+<h1>ClientRestaurants</h1>
+
+<table class="table" id="restaurants">
+
+</table>
+
+@section Scripts {
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.js"></script>
+
+    <script>
+        $(function () {
+            let cuisines = [ "Uknown", "Mexican", "Italian", "Indian" ];
+            $.ajax("/api/restaurants/", { method: "get" })
+                .then(function (response) {
+                    $("#restaurants").dataTable({
+                        data: response,
+                        columns: [
+                            { "data": "name" },
+                            { "data": "location" },
+                            { "data": "cuisine", "render": data => cuisines[data] }
+                        ]
+                    });
+                });
+        })
+    </script>
+}

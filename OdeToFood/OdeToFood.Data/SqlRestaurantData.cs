@@ -48,5 +48,7 @@ namespace OdeToFood.Data
             entity.State = EntityState.Modified;
             return updatedRestaurant;
         }
+
+        public int GetCountOfRestaurants() => db.Restaurants.Count();
     }
 }
